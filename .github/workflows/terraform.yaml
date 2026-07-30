@@ -1,9 +1,11 @@
 name: Terraform Destroy
 
 on:
+  
   push:
     branches:
       - master
+
 
 permissions:
   id-token: write
@@ -30,10 +32,20 @@ jobs:
         working-directory: terraform
         run: terraform init
 
+      - name: Show Files
+        run: |
+          pwd
+          ls -la
+          find . -name "*.tf"
+
       - name: Terraform Validate
         working-directory: terraform
         run: terraform validate
 
+      - name: Terraform Plan Destroy
+        working-directory: terraform
+        run: terraform plan -destroy -out=destroy.tfplan
+
       - name: Terraform Destroy
         working-directory: terraform
-        run: terraform destroy -auto-approve  
+        run: terraform apply -auto-approve destroy.tfplan 
