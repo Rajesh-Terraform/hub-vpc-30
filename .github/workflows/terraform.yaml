@@ -27,7 +27,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
-        working-directory: .github/workflows/terraform
+        working-directory: terraform
         run: terraform init
 
       - name: Show Files
@@ -36,13 +36,13 @@ jobs:
           ls -la
           find . -name "*.tf"
       - name: Terraform Validate
-        working-directory: .github/workflows/terraform
+        working-directory: terraform
         run: terraform validate
 
       - name: Terraform Plan
-        working-directory: .github/workflows/terraform
+        working-directory: terraform
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
-        working-directory: .github/workflows/terraform
+        working-directory: terraform
         run: terraform apply -auto-approve tfplan       
