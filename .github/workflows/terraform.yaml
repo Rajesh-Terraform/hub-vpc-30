@@ -1,9 +1,7 @@
-name: Terraform hub-vpc
+name: Terraform Destroy
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -30,21 +28,6 @@ jobs:
         working-directory: terraform
         run: terraform init
 
-      - name: Show Files
-        run: |
-          pwd
-          ls -la
-          find . -name "*.tf"
-      - name: Terraform Validate
+      - name: Terraform Destroy
         working-directory: terraform
-        run: terraform validate
-
-      - name: Terraform Plan
-        working-directory: terraform
-        run: terraform plan -out=tfplan
-
-      - name: Terraform Apply
-        working-directory: terraform
-        run: terraform apply -auto-approve tfplan    
-        
-     
+        run: terraform destroy -auto-approve
