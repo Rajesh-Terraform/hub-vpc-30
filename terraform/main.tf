@@ -208,4 +208,4 @@ resource "aws_route_table_association" "pri2" {
 
   route_table_id = aws_route_table.private2.id
 
-}    
+}     
