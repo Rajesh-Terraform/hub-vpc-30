@@ -111,6 +111,26 @@ resource "aws_route" "private1_nat" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.nat1.id
 }  
+
+#########################
+# Elastic IPs
+#########################
+
+resource "aws_eip" "nat1" {
+  domain = "vpc"
+
+  tags = {
+    Name = "nat1-eip"
+  }
+}
+
+resource "aws_eip" "nat2" {
+  domain = "vpc"
+
+  tags = {
+    Name = "nat2-eip"
+  }
+}
    
 
 
