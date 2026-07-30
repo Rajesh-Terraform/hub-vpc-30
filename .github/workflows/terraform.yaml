@@ -1,0 +1,48 @@
+name: Terraform hub-vpc
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::647132523867:role/github-actions-terraform-role-v1
+          aws-region: ap-south-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: .github/workflows/terraform
+        run: terraform init
+
+      - name: Show Files
+        run: |
+          pwd
+          ls -la
+          find . -name "*.tf"
+      - name: Terraform Validate
+        working-directory: .github/workflows/terraform
+        run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: .github/workflows/terraform
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        working-directory: .github/workflows/terraform
+        run: terraform apply -auto-approve tfplan  
