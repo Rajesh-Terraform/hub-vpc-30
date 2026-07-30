@@ -12,4 +12,4 @@ variable "private_subnet_2" {}
 
 variable "az1" {}
 
-variable "az2" {}  
+variable "az2" {}    

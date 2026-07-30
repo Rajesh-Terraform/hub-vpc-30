@@ -9,4 +9,4 @@ private_subnet_1 = "10.0.10.0/24"
 private_subnet_2 = "10.0.11.0/24"
 
 az1 = "ap-south-1a"
-az2 = "ap-south-1b"   
+az2 = "ap-south-1b"     
